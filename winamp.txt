@@ -1,10 +1,10 @@
+/* Helpful wrapper for the native <audio> element */
 function Media (audioId) {
     this.audio = document.getElementById(audioId);
 
     // create audio context (if browser supports it)
     var AudioCtx = null, AudioModule = window.AudioContext || window.webkitAudioContext;
     var mediaApi, leftGain, rightGain, chanSplit, chanMerge;
-	// var mediaChan, chan6, chan17, chan31, chan60, chan1k, chan3k, chan6k, chan12k, chan14k, chan16k;
 
     var isFirefox = navigator.userAgent.search("Firefox") !== -1;
     // createMediaElementSource does not seem to work due to CORS on Firefox
@@ -21,8 +21,6 @@ function Media (audioId) {
         // basic audio stream flow
         //
         //              <audio>
-		//					|
-		//			   (equalizer)
         //                  |
         //  (split using createChannelSplitter)
         //                  |
@@ -36,26 +34,7 @@ function Media (audioId) {
         //                  |
         //              chanMerge    
 
-		
-		// brand spanking new EQ stuff
-		//
-		// biquad filters for channels. Processed in series: lowshelf -> bandpass x8 -> highshelf
-		//chan6 = AudioCtx.createBiquadFilter();
-		//chan17 = AudioCtx.createBiquadFilter()
-		//chan31 = AudioCtx.createBiquadFilter();
-		//chan60 = AudioCtx.createBiquadFilter();
-		//chan1k = AudioCtx.createBiquadFilter();
-		//chan3k = AudioCtx.createBiquadFilter();
-		//chan6k = AudioCtx.createBiquadFilter();
-		//chan12k = AudioCtx.createBiquadFilter();
-		//chan14k = AudioCtx.createBiquadFilter();
-		//chan16k = AudioCtx.createBiquadFilter();
-		
-		//mediaChan.connect(chan6);
-		//chan6.type = 'lowshelf';
-		//chan6.frequency.value = 60
-		
-		
+
         // create gains for left right
         leftGain = AudioCtx.createGain();
         rightGain = AudioCtx.createGain();
@@ -206,8 +185,6 @@ function Winamp () {
         'playPause': document.getElementById('play-pause'),
         'winamp': document.getElementById('winamp'),
         'titleBar': document.getElementById('title-bar'),
-		'eqShow': document.getElementById('eq-btn'),
-		'plsShow': document.getElementById('pls-btn'),
     };
 
     // make window dragable
@@ -261,24 +238,7 @@ function Winamp () {
         window.addEventListener('mouseup',handleUp);
     });
 
-    // Hide/Show Equalizer/Playlist windows
-	this.nodes.eqShow.onclick = function(e) {
-		var e = document.getElementById('equalizer');
-		if(e.style.display == 'block')
-			e.style.display = 'none';
-		else
-			e.style.display = 'block';
-	}
-	
-	this.nodes.plsShow.onclick = function(e) {
-		var e = document.getElementById('playlist');
-		if(e.style.display == 'block')
-			e.style.display = 'none';
-		else
-			e.style.display = 'block';
-	}
-	
-	this.nodes.option.onclick = function() {
+    this.nodes.option.onclick = function() {
         text = "Enter an Internet location to open here:\n";
         text += "For example: http://www.server.com/file.mp3"
         file = window.prompt(text, '');
@@ -485,7 +445,9 @@ function Winamp () {
         div.innerHTML = digit;
         return div;
     }
+
 }
+
 Font = function() {
 
     this.setNodeToString = function(node, string) {

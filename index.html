@@ -46,8 +46,8 @@
             <input id='volume' type='range' min='0' max='100' step='1' value='50' />
             <input id='balance' type='range' min='-100' max='100' step='2' value='0' />
             <div class='windows'>
-                <div id='equalizer'></div>
-                <div id='playlist'></div>
+                <div id='eq-btn'></div>
+                <div id='pls-btn'></div>
             </div>
             <input id='position' type='range' min='0' max='100' step='1' value='0' />
             <div class='actions'>
@@ -65,7 +65,13 @@
                 <div id="repeat"></div>
             </div>
             <a id='about' target='_blank' href='https://github.com/captbaritone/winamp2-js'></a>
-        </div>
+		</div>
+		<div id='equalizer'>
+			<div id='eq-title'></div>
+			<input id="eq-amp" type='range' class='vertical' min='-50' max='50' step='2' value='0' />
+		</div>
+		<div id='playlist'>
+		</div>
         <p style="position: absolute; bottom: 0;">by <a href='https://twitter.com/captbaritone'>@captbaritone</a> with additional work by <a href = 'https://github.com/rfare/winamp2-js'>Michelle T</a></p>
         <script src="winamp.js"></script>
     </body>

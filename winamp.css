@@ -5,6 +5,7 @@ input[type=range]::-moz-range-thumb { border: none; border-radius: 0; background
 input[type=range]::-moz-range-track { border: none; background: none; }
 input[type=range]:focus { outline: none; }
 input[type=range]::-moz-focus-outer { border: 0; }
+input[type=range].vertical { -webkit-appearance: slider-vertical; }
 a:focus { outline: none; }
 
 #shade-minute-first-digit,
@@ -103,6 +104,15 @@ a:focus { outline: none; }
     background-position: -312px 0;
 }
 
+.status #visualization {
+	position: absolute;
+	top: 43px;
+	left: 24px;
+	height: 16px;
+	width: 78px;
+	background-color: rgba(0,0,0,0.0);
+}
+	
 .status #play-pause {
     position: absolute;
     top: 28px;
@@ -311,6 +321,17 @@ a:focus { outline: none; }
     background-position: 0 -422px;
 }
 
+/* 
+<input type="range" class="vertical"/> 
+
+input[type=range].vertical {
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 200px;
+    padding: 0 5px;
+}
+*/
+
 .windows {
     position: absolute;
     left: 219px;
@@ -326,19 +347,19 @@ a:focus { outline: none; }
     background-image: url('skins/default/SHUFREP.BMP');
 }
 
-.windows #equalizer {
+.windows #eq-btn {
     left: 0;
     background-position: 0 -61px;
 }
-.windows #equalizer:active {
+.windows #eq-btn:active {
     background-position: -46px -61px;
 }
 
-.windows #playlist {
+.windows #pls-btn {
     left: 23px;
     background-position: -23px -61px;
 }
-.windows #playlist:active {
+.windows #pls-btn:active {
     background-position: -69px -61px;
 }
 
@@ -629,4 +650,40 @@ a:focus { outline: none; }
     left: 152px;
     width: 5px;
     height:6px;
+}
+
+#equalizer {
+    position: relative;
+    background-image: url('skins/default/EQMAIN.BMP');
+    height: 116px;
+	width: 275px;
+    overflow: hidden;
+    cursor:url('cursors/MAINMENU.CUR'), auto;
+}
+#eq-title {
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 13px;
+    width: 275px;
+    background-image: url('skins/default/EQMAIN.BMP');
+    background-position: 0px -149px;
+    cursor:url('cursors/TITLEBAR.CUR'), auto;
+}
+#eq-amp {
+	position: absolute;
+	top: 38px;
+	left: 24px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/EQMAIN.BMP');
+	background-position: -13px -165px;
+}
+#playlist {
+    position: relative;
+    background-image: url('skins/default/EQ_EX.BMP');
+    height: 14px;
+	width: 275px;
+    overflow: hidden;
+    cursor:url('cursors/MAINMENU.CUR'), auto;
 }

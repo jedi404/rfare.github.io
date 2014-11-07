@@ -1,0 +1,85 @@
+How to create Audio-Visualizations with JavaScript & HTML
+I recently got inspired by a beautiful youtube audio visualization and thought “Hey, why not create my own set of audio visualizations?”.
+
+Check out the Audio Visualizations! (Chrome only for now- sorry)
+
+In this article I’ll explain what I did in order to build it. Although webgl or canvas2d looked very promising (and interesting, I’d love to learn more about webgl!) for such a task I decided to implement it with a DOM element renderer and animate with CSS transitions instead (but I’d love to port them in future).
+
+This experiment was particularily fun for me because it was the first time I was able to apply my knowledge from studying Mathematics. Although the Math part was very easy here I really enjoyed understanding why things work the way they do.
+
+So here’s how I started
+
+Get the data
+At first we need data to visualize. We’re lucky! Because Chrome’s Web Audio API has already support for various Web Audio features. We specifically need a thing called AnalyserNode. The AnalyserNode will provide realtime frequency data for our visualization. Read more about it in the w3c Web Audio Specs [0].
+Let’s see what we need to setup to get our data:
+At first we need to add an <audio> element to the document including the source path of the audio file we want to analyse/visualize.
+
+1
+<audio id="myAudio" src="path-to-audio.mp3"></audio>
+Here’s how we get the data from the AnalyserNode
+
+=================================================
+
+window.onload = function() {
+  var ctx = new AudioContext();
+  var audio = document.getElementById('myAudio');
+  var audioSrc = ctx.createMediaElementSource(audio);
+  var analyser = ctx.createAnalyser();
+  // we have to connect the MediaElementSource with the analyser 
+  audioSrc.connect(analyser);
+  // we could configure the analyser: e.g. analyser.fftSize (for further infos read the spec)
+ 
+  // frequencyBinCount tells you how many values you'll receive from the analyser
+  var frequencyData = new Uint8Array(analyser.frequencyBinCount);
+ 
+  // we're ready to receive some data!
+  // loop
+  function renderFrame() {
+     requestAnimationFrame(renderFrame);
+     // update data in frequencyData
+     analyser.getByteFrequencyData(frequencyData);
+     // render frame based on values in frequencyData
+     // console.log(frequencyData)
+  }
+  audio.start();
+  renderFrame();
+};
+
+===============================================
+
+Analyze it
+Now we have some nice data to visualize. I’ve tested multiple songs and noticed that the range of frequencyData is [0, 255] ? N – makes sense. There were a few entries that were always 0 – removing them would probably make sense for visual animation’s sake but we would loose information about the frequencies.
+
+Visualize all se data
+That’s the fun part. I started with a barchart animation where each bar represented an index in the frequencyData array. A bar was a simple DOM node absolutely aligned on the bottom of the visualization area and as the frequencyData changed I updated the css height property of all nodes. In order to get things smoother I set the css transition property to 0.1s.
+
+Making it more interesting – Radial Alignment
+This is still simple but a little more tricky. In order to align objects on a circular path you need basic trigonometric functions (Cos & Sin are your friends!).
+
+=====================================
+
+// a full circle
+var twoPi = 2*Math.PI;
+var objectsCount = 12;
+var radius = 100
+ 
+// you want to align objectsCount objects on the circular path
+// with constant distance between neighbors
+var change = twoPi/objectsCount;
+for (var i=0; i < twoPi; i+=change) {
+  var x = radius*cos(i);
+  var y = radius*sin(i);
+  // rotation of object in radians
+  var rotation = i;
+  // set the CSS properties to calculated values
+}
+
+=========================================
+
+Looking for more awesome alignment options? You can basically use ANY curve in 2d space so there are endless alignment possibilities (e.g. the heart curve, the teardrop curve, and so on..). I didn’t get to play around for long but I’d love to see some more sophisticated visualizations!
+
+I hope you enjoyed the article. Let me know what you think :)
+
+References
+[0] W3C Spec AnalyserNode
+https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AnalyserNode
