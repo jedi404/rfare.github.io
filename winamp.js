@@ -4,8 +4,8 @@ function Media (audioId) {
     // create audio context (if browser supports it)
     var AudioCtx = null, AudioModule = window.AudioContext || window.webkitAudioContext;
     var mediaApi, leftGain, rightGain, chanSplit, chanMerge;
-	// var mediaChan, chan6, chan17, chan31, chan60, chan1k, chan3k, chan6k, chan12k, chan14k, chan16k;
-
+	//var chan6, chan17, chan31, chan60, chan1k, chan3k, chan6k, chan12k, chan14k, chan16k;
+	
     var isFirefox = navigator.userAgent.search("Firefox") !== -1;
     // createMediaElementSource does not seem to work due to CORS on Firefox
     // http://stackoverflow.com/a/19710142
@@ -36,26 +36,6 @@ function Media (audioId) {
         //                  |
         //              chanMerge    
 
-		
-		// brand spanking new EQ stuff
-		//
-		// biquad filters for channels. Processed in series: lowshelf -> bandpass x8 -> highshelf
-		//chan6 = AudioCtx.createBiquadFilter();
-		//chan17 = AudioCtx.createBiquadFilter()
-		//chan31 = AudioCtx.createBiquadFilter();
-		//chan60 = AudioCtx.createBiquadFilter();
-		//chan1k = AudioCtx.createBiquadFilter();
-		//chan3k = AudioCtx.createBiquadFilter();
-		//chan6k = AudioCtx.createBiquadFilter();
-		//chan12k = AudioCtx.createBiquadFilter();
-		//chan14k = AudioCtx.createBiquadFilter();
-		//chan16k = AudioCtx.createBiquadFilter();
-		
-		//mediaChan.connect(chan6);
-		//chan6.type = 'lowshelf';
-		//chan6.frequency.value = 60
-		
-		
         // create gains for left right
         leftGain = AudioCtx.createGain();
         rightGain = AudioCtx.createGain();
@@ -63,9 +43,91 @@ function Media (audioId) {
         // split source channels
         chanSplit = AudioCtx.createChannelSplitter(2);
 
-        // pass <audio> through channel splitter
-        mediaApi.connect(chanSplit);
-
+		// brand spanking new EQ stuff
+		//
+		// biquad filters for channels. Processed in series: lowshelf -> peaking x8 -> highshelf
+		chan6 = AudioCtx.createBiquadFilter();
+		chan17 = AudioCtx.createBiquadFilter();
+		chan31 = AudioCtx.createBiquadFilter();
+		chan60 = AudioCtx.createBiquadFilter();
+		chan1k = AudioCtx.createBiquadFilter();
+		chan3k = AudioCtx.createBiquadFilter();
+		chan6k = AudioCtx.createBiquadFilter();
+		chan12k = AudioCtx.createBiquadFilter();
+		chan14k = AudioCtx.createBiquadFilter();
+		chan16k = AudioCtx.createBiquadFilter();
+		
+		mediaApi.connect(chan6);
+		mediaApi.connect(chan17);
+		mediaApi.connect(chan31);
+		mediaApi.connect(chan60);
+		mediaApi.connect(chan1k);
+		mediaApi.connect(chan3k);
+		mediaApi.connect(chan6k);
+		mediaApi.connect(chan12k);
+		mediaApi.connect(chan14k);
+		mediaApi.connect(chan16k);
+		
+		chan6.type = 'peaking';
+		chan6.frequency.value = 60;
+		chan6.Q.value = 2;
+		chan6.gain.value = 0;
+		chan6.connect(chanSplit);
+		
+		chan17.type = 'peaking';
+		chan17.frequency.value = 170;
+		chan17.Q.value = 2;
+		chan17.gain.value = 0;
+		chan17.connect(chanSplit);
+		
+		chan31.type = 'peaking';
+		chan31.frequency.value = 310;
+		chan31.Q.value = 2;
+		chan31.gain.value = 0;
+		chan31.connect(chanSplit);
+		
+		chan60.type = 'peaking';
+		chan60.frequency.value = 600;
+		chan60.Q.value = 2;
+		chan60.gain.value = 0;
+		chan60.connect(chanSplit);
+		
+		chan1k.type = 'peaking';
+		chan1k.frequency.value = 1000;
+		chan1k.Q.value = 2;
+		chan1k.gain.value = 0;
+		chan1k.connect(chanSplit);
+		
+		chan3ktype = 'peaking';
+		chan3k.frequency.value = 3000;
+		chan3k.Q.value = 2;
+		chan3k.gain.value = 0;
+		chan3k.connect(chanSplit);
+		
+		chan6k.type = 'peaking';
+		chan6k.frequency.value = 6000;
+		chan6k.Q.value = 2;
+		chan6k.gain.value = 0;
+		chan6k.connect(chanSplit)
+		
+		chan12k.type = 'peaking';
+		chan12k.frequency.value = 12000;
+		chan12k.Q.value = 2;
+		chan12k.gain.value = 0;
+		chan12k.connect(chanSplit);
+		
+		chan14k.type = 'peaking';
+		chan14k.frequency.value = 14000;
+		chan14k.Q.value = 2;
+		chan14k.gain.value = 0;
+		chan14k.connect(chanSplit);
+		
+		chan16k.type = 'peaking';
+		chan16k.frequency.value = 16000;
+		chan16k.Q.value = 2;
+		chan16k.gain.value = 0;
+		chan16k.connect(chanSplit);
+		
         // connect split channels to left / right gains
         chanSplit.connect(leftGain,0);
         chanSplit.connect(rightGain,1);
@@ -78,8 +140,7 @@ function Media (audioId) {
         // send merged channels to soundcard
         chanMerge.connect(AudioCtx.destination);
     }
-
-    /* Properties */
+	/* Properties */
     this.timeElapsed = function() {
         return this.audio.currentTime;
     }
@@ -208,6 +269,16 @@ function Winamp () {
         'titleBar': document.getElementById('title-bar'),
 		'eqShow': document.getElementById('eq-btn'),
 		'plsShow': document.getElementById('pls-btn'),
+		'chan6': document.getElementById('chan6'),
+		'chan17': document.getElementById('chan17'),
+		'chan31': document.getElementById('chan31'),
+		'chan60': document.getElementById('chan60'),
+		'chan1k': document.getElementById('chan1k'),
+		'chan3k': document.getElementById('chan3k'),
+		'chan6k': document.getElementById('chan6k'),
+		'chan12k': document.getElementById('chan12k'),
+		'chan14k': document.getElementById('chan14k'),
+		'chan16k': document.getElementById('chan16k'),
     };
 
     // make window dragable
@@ -350,7 +421,239 @@ function Winamp () {
         string = 'Volume: ' + this.value + '%';
         self.font.setNodeToString(self.nodes.volumeMessage, string);
     }
+	
+	this.nodes.chan6.oninput = function() {
+		var changeVal;
+		var setChan6 = this.value;
+		if(setChan6 === 0) {
+            chan6.gain.value = 0;
+			console.log(setChan6);
+        }
+        else if(setChan6 < 0) {
+            // convert to positive
+			console.log(setChan6);
+            changeVal = setChan6 *= -1;
+            changeVal = changeVal;
 
+            chan6.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan6);
+            changeVal = setChan6;
+            changeVal = changeVal;
+            
+            chan6.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan17.oninput = function() {
+		var changeVal;
+		var setChan17 = this.value;
+		if(setChan17 === 0) {
+            chan17.gain.value = 0;
+			console.log(setChan17);
+        }
+        else if(setChan17 < 0) {
+            // convert to positive
+			console.log(setChan17);
+            changeVal = setChan17 *= -1;
+            changeVal = changeVal;
+
+            chan17.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan17);
+            changeVal = setChan17;
+            changeVal = changeVal;
+            
+            chan17.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan31.oninput = function() {
+		var changeVal;
+		var setChan31 = this.value;
+		if(setChan31 === 0) {
+            chan31.gain.value = 0;
+			console.log(setChan31);
+        }
+        else if(setChan31 < 0) {
+            // convert to positive
+			console.log(setChan31);
+            changeVal = setChan31 *= -1;
+            changeVal = changeVal;
+
+            chan31.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan31);
+            changeVal = setChan31;
+            changeVal = changeVal;
+            
+            chan31.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan60.oninput = function() {
+		var changeVal;
+		var setChan60 = this.value;
+		if(setChan60 === 0) {
+            chan60.gain.value = 0;
+			console.log(setChan60);
+        }
+        else if(setChan60 < 0) {
+            // convert to positive
+			console.log(setChan60);
+            changeVal = setChan60 *= -1;
+            changeVal = changeVal;
+
+            chan60.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan60);
+            changeVal = setChan60;
+            changeVal = changeVal;
+            
+            chan60.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan1k.oninput = function() {
+		var changeVal;
+		var setChan1k = this.value;
+		if(setChan1k === 0) {
+            chan1k.gain.value = 0;
+			console.log(setChan1k);
+        }
+        else if(setChan1k < 0) {
+            // convert to positive
+			console.log(setChan1k);
+            changeVal = setChan1k *= -1;
+            changeVal = changeVal;
+
+            chan1k.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan1k);
+            changeVal = setChan1k;
+            changeVal = changeVal;
+            
+            chan1k.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan3k.oninput = function() {
+		var changeVal;
+		var setChan3k = this.value;
+		if(setChan3k === 0) {
+            chan3k.gain.value = 0;
+			console.log(setChan3k);
+        }
+        else if(setChan3k < 0) {
+            // convert to positive
+			console.log(setChan3k);
+            changeVal = setChan3k *= -1;
+            changeVal = changeVal;
+
+            chan3k.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan3k);
+            changeVal = setChan3k;
+            changeVal = changeVal;
+            
+            chan3k.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan6k.oninput = function() {
+		var changeVal;
+		var setChan6k = this.value;
+		if(setChan6k === 0) {
+            chan6k.gain.value = 0;
+			console.log(setChan6k);
+        }
+        else if(setChan6k < 0) {
+            // convert to positive
+			console.log(setChan6k);
+            changeVal = setChan6k *= -1;
+            changeVal = changeVal;
+
+            chan6k.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan6k);
+            changeVal = setChan6k;
+            changeVal = changeVal;
+            
+            chan6k.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan12k.oninput = function() {
+		var changeVal;
+		var setChan12k = this.value;
+		if(setChan12k === 0) {
+            chan12k.gain.value = 0;
+			console.log(setChan12k);
+        }
+        else if(setChan12k < 0) {
+            // convert to positive
+			console.log(setChan12k);
+            changeVal = setChan12k *= -1;
+            changeVal = changeVal;
+
+            chan12k.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan12k);
+            changeVal = setChan12k;
+            changeVal = changeVal;
+            
+            chan12k.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan14k.oninput = function() {
+		var changeVal;
+		var setChan14k = this.value;
+		if(setChan14k === 0) {
+            chan14k.gain.value = 0;
+			console.log(setChan14k);
+        }
+        else if(setChan14k < 0) {
+            // convert to positive
+			console.log(setChan14k);
+            changeVal = setChan14k *= -1;
+            changeVal = changeVal;
+
+            chan14k.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan14k);
+            changeVal = setChan14k;
+            changeVal = changeVal;
+            
+            chan14k.gain.value = 0 + changeVal;
+		}
+	}
+	this.nodes.chan16k.oninput = function() {
+		var changeVal;
+		var setChan16k = this.value;
+		if(setChan16k === 0) {
+            chan16k.gain.value = 0;
+			console.log(setChan16k);
+        }
+        else if(setChan16k < 0) {
+            // convert to positive
+			console.log(setChan16k);
+            changeVal = setChan16k *= -1;
+            changeVal = changeVal;
+
+            chan16k.gain.value = 0 - changeVal;
+        }
+        else { // setChan6 > 0
+			console.log(setChan16k);
+            changeVal = setChan16k;
+            changeVal = changeVal;
+            
+            chan16k.gain.value = 0 + changeVal;
+		}
+	}
+
+	
     this.nodes.position.onmousedown = function() {
         self.media.pause();
     }
@@ -402,7 +705,7 @@ function Winamp () {
         offset = (sprite - 1) * 15;
         self.nodes.balance.style.backgroundPosition = '-9px -' + offset + 'px';
     }
-
+	
     function toggleRepeat() {
         self.media.toggleRepeat();
         self.nodes.repeat.classList.toggle('selected');

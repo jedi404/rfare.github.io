@@ -1,12 +1,13 @@
 /* Range input css reset */
 input[type=range]{ -webkit-appearance: none; margin: 0; padding: 0; background: none; }
+input[type=range].vertical{-webkit-appearance: slider-vertical; border: none; border-radius: none; background: none; }
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; border: none; border-radius: 0; background: none; }
 input[type=range]::-moz-range-thumb { border: none; border-radius: 0; background: none; }
 input[type=range]::-moz-range-track { border: none; background: none; }
 input[type=range]:focus { outline: none; }
 input[type=range]::-moz-focus-outer { border: 0; }
-input[type=range].vertical { -webkit-appearance: slider-vertical; }
 a:focus { outline: none; }
+html { min-height: 100%; background-image: url("http://www.winamp.com/images/bg01.jpg"); background-size: 100% 100%; background-repeat: no-repeat; }
 
 #shade-minute-first-digit,
 #shade-minute-second-digit,
@@ -653,7 +654,9 @@ input[type=range].vertical {
 }
 
 #equalizer {
-    position: relative;
+    position: absolute;
+	top: 116px;
+	left: 0;
     background-image: url('skins/default/EQMAIN.BMP');
     height: 116px;
 	width: 275px;
@@ -662,7 +665,7 @@ input[type=range].vertical {
 }
 #eq-title {
 	position: absolute;
-    top: 0;
+    top: 116;
     left: 0;
     height: 13px;
     width: 275px;
@@ -673,14 +676,194 @@ input[type=range].vertical {
 #eq-amp {
 	position: absolute;
 	top: 38px;
-	left: 24px;
+	left: 22px;
 	height: 63px;
 	width: 14px;
-	background-image: url('skins/default/EQMAIN.BMP');
-	background-position: -13px -165px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
 }
+#eq-amp::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan6 {
+	position: absolute;
+	top: 38px;
+	left: 78px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan6::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan17 {
+	position: absolute;
+	top: 38px;
+	left: 96px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan17::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan31 {
+	position: absolute;
+	top: 38px;
+	left: 114px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan31::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan60 {
+	position: absolute;
+	top: 38px;
+	left: 132px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan60::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan1k {
+	position: absolute;
+	top: 38px;
+	left: 150px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan1k::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan3k {
+	position: absolute;
+	top: 38px;
+	left: 168px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan3k::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan6k {
+	position: absolute;
+	top: 38px;
+	left: 186px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan6k::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan12k {
+	position: absolute;
+	top: 38px;
+	left: 204px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan12k::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan14k {
+	position: absolute;
+	top: 38px;
+	left: 222px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan14k::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
+#chan16k {
+	position: absolute;
+	top: 38px;
+	left: 240px;
+	height: 63px;
+	width: 14px;
+	background-image: url('skins/default/VOLUME.BMP');
+	background-position: 0 0; 
+}
+#chan16k::-webkit-slider-thumb {
+    margin-top: 1px;
+    height: 63px;
+    width: 14px;
+    background-image: url('skins/default/VOLUME.BMP');
+    background-position: -15px -422px;
+    cursor:url('cursors/VOLBAR.CUR'), auto;
+	}
 #playlist {
-    position: relative;
+    position: absolute;
+	top: 232px;
+	left: 0px;
     background-image: url('skins/default/EQ_EX.BMP');
     height: 14px;
 	width: 275px;
