@@ -864,4 +864,4 @@ document.onkeyup = function(e){
 }
 
 winamp = new Winamp();
-winamp.loadFile('https://rfare.github.io/CleanGrave.mp3', "1. Laibach - See That My Grave Is Kept Clean  ***  ");
+winamp.loadFile('https://rfare.github.io/GraveClean.mp3', "1. Laibach - See That My Grave Is Kept Clean  ***  ");
