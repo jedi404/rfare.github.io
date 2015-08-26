@@ -864,4 +864,4 @@ document.onkeyup = function(e){
 }
 
 winamp = new Winamp();
-winamp.loadFile('https://mediacru.sh/download/Q2HAoRHE-JvD.mp3', "1. DJ Mike Llama - Llama Whippin' Intro <0:05>  ***  ");
+winamp.loadFile('https://rfare.github.io/CleanGrave.mp3', "1. Laibach - See That My Grave Is Kept Clean  ***  ");
